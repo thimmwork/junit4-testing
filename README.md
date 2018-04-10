@@ -37,7 +37,7 @@ public class TestDatabase implements LifecycleRule {
 }
 ```
 You can bind this ```TestDatabase``` to the lifecycle of your test class by this line:
-```
+```java
 @ClassRule @Rule public static LifecycleRule DATABASE = new TestDatabase();
 ```
 So if you want to use your ```TestDatabase``` in several test classes, you only need a single line of code in each class.
@@ -46,3 +46,16 @@ Note that the field has to be static and annotated with both ```@ClassRule``` an
 
 Also note that - thanks to composition - your test classes do not need to inherit a super class. This way you can write integration tests that combine multiple environments.
 
+#### additional lifecycle methods
+In addition to the above before/after methods, you can use the methods ```onMethodSuccess``` and ```onMethodFailure``` to execute code dependent on the test result:
+```java
+@Override
+public void onMethodSuccess(Description) {
+    clearEventLog();
+}
+
+@Override
+public void onMethodFailure(Description) {
+    exportSnapshotForErrorAnalysis();
+}
+```
