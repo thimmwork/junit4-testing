@@ -45,7 +45,7 @@ public interface LifecycleRule extends TestRule {
                         baseStatement.evaluate();
                         onMethodSuccess(description);
                     } catch (Throwable throwable) {
-                        onMethodFail(description, throwable);
+                        onMethodFailure(description, throwable);
                         throw throwable;
                     } finally {
                         after(description);
@@ -55,6 +55,11 @@ public interface LifecycleRule extends TestRule {
         }
         return baseStatement;
     }
+
+    /**
+     * override this method to add code that should be called before each test class or suite
+     */
+    default void beforeClass(Description description) {}
 
     /**
      * override this method to add code that should be called before each test method
@@ -67,19 +72,14 @@ public interface LifecycleRule extends TestRule {
     default void onMethodSuccess(Description description) {}
 
     /**
+     * override this method to add code that should be called after each failed test method
+     */
+    default void onMethodFailure(Description description, Throwable t) {}
+
+    /**
      * override this method to add code that should be called after each test method
      */
     default void after(Description description) {}
-
-    /**
-     * override this method to add code that should be called after each failed test method
-     */
-    default void onMethodFail(Description description, Throwable t) {}
-
-    /**
-     * override this method to add code that should be called before each test class or suite
-     */
-    default void beforeClass(Description description) {}
 
     /**
      * override this method to add code that should be called before each test class or suite

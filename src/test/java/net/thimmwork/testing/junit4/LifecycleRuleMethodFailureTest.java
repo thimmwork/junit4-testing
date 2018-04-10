@@ -63,7 +63,7 @@ public class LifecycleRuleMethodFailureTest {
         }
 
         @Override
-        public void onMethodFail(Description description, Throwable t) {
+        public void onMethodFailure(Description description, Throwable t) {
             verifyInvocation(Invocation.METHOD_FAILURE);
         }
 
