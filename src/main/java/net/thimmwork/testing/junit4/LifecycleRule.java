@@ -59,30 +59,30 @@ public interface LifecycleRule extends TestRule {
     /**
      * override this method to add code that should be called before each test class or suite
      */
-    default void beforeClass(Description description) {}
+    default void beforeClass(Description description) throws Throwable {}
 
     /**
      * override this method to add code that should be called before each test method
      */
-    default void before(Description description) {}
+    default void before(Description description) throws Throwable {}
 
     /**
      * override this method to add code that should be called after each successful completion of a test method
      */
-    default void onMethodSuccess(Description description) {}
+    default void onMethodSuccess(Description description) throws Throwable {}
 
     /**
      * override this method to add code that should be called after each failed test method
      */
-    default void onMethodFailure(Description description, Throwable t) {}
+    default void onMethodFailure(Description description, Throwable t) throws Throwable {}
 
     /**
      * override this method to add code that should be called after each test method
      */
-    default void after(Description description) {}
+    default void after(Description description) throws Throwable {}
 
     /**
      * override this method to add code that should be called before each test class or suite
      */
-    default void afterClass(Description description) {}
+    default void afterClass(Description description) throws Throwable {}
 }
