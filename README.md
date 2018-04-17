@@ -59,3 +59,27 @@ public void onMethodFailure(Description) {
     exportSnapshotForErrorAnalysis();
 }
 ```
+
+#### before/after Suite
+To call methods before/after a Suite, add a static field to your suite and annotate it with ```@ClassRule``` like so:
+```java
+@RunWith(Suite.class)
+@SuiteClasses({MyTestCase1.class, MyTestCase2.class})
+public class TestSuite {
+    @ClassRule public static LifecycleRule RULE = new MySuiteLifecycle();
+}
+```
+In your test classes you can access the same instance of your Lifecycle by referencing the static field:
+```java
+public class MyTestCase1 {
+    @ClassRule @Rule public static LifecycleRule RULE = TestSuite.RULE;
+}
+```
+LifecycleRule looks at child descriptions to detect suite hooks from class hooks. Usually you have a structure like
+```
+Suite
+\- Class
+   \- Method
+```
+However, if you have nested tests, this detection may not work for you.
+In this case, you may have to override the detection mechanism in ```LifecycleRule#isSuite()``` and/or ```LifecycleRule#isClass()```.

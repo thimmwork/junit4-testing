@@ -25,7 +25,19 @@ public interface LifecycleRule extends TestRule {
      * wraps the executed statement into a new statement that will call the appropriate lifecycle methods
      */
     default Statement apply(Statement baseStatement, Description description) {
-        if (description.isSuite()) {
+        if (isSuite(description)) {
+            return new Statement() {
+                public void evaluate() throws Throwable {
+                    beforeSuite(description);
+                    try {
+                        baseStatement.evaluate();
+                    } finally {
+                        afterSuite(description);
+                    }
+                }
+            };
+        }
+        if (isClass(description)) {
             return new Statement() {
                 public void evaluate() throws Throwable {
                     beforeClass(description);
@@ -56,6 +68,27 @@ public interface LifecycleRule extends TestRule {
         return baseStatement;
     }
 
+    default boolean isClass(Description description) {
+        return !description.getChildren().isEmpty()
+                && description.getChildren().get(0).getChildren().isEmpty();
+    }
+
+    default boolean isSuite(Description description) {
+        if (description.getChildren().isEmpty()) {
+            return false;
+        }
+        Description child = description.getChildren().get(0);
+        if (child.getChildren().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * override this method to add code that should be called before each test class or suite
+     */
+    default void beforeSuite(Description description) throws Throwable {}
+
     /**
      * override this method to add code that should be called before each test class or suite
      */
@@ -85,4 +118,9 @@ public interface LifecycleRule extends TestRule {
      * override this method to add code that should be called before each test class or suite
      */
     default void afterClass(Description description) throws Throwable {}
+
+    /**
+     * override this method to add code that should be called before each test class or suite
+     */
+    default void afterSuite(Description description) throws Throwable {}
 }
