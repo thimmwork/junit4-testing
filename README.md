@@ -1,6 +1,17 @@
 # junit4-testing
 a lightweight collection of utilities based on JUnit 4
 
+## Maven coordinates
+Just add this to your dependencies:
+```xml
+<dependency>
+    <groupId>net.thimmwork</groupId>
+    <artifactId>junit4-testing</artifactId>
+    <version>2.0</version>
+</dependency>
+```
+available at maven central.
+
 ### LifecycleRule
 The LifecycleRule interface allows to wrap ```@BeforeClass```, ```@Before```, ```@After```, ```@AfterClass``` behavior and more in a single class.
 
