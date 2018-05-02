@@ -20,6 +20,16 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+/**
+ * This class is designed as a base class for test resources that provides multiple lifecycle hooks
+ * that combine JUnit's <code>before</code>/<code>beforeClass</code> and <code>after</code>/
+ * <code>afterClass</code> by leveraging its <code>@ClassRule</code>/<code>@Rule</code> mechanism.
+ *
+ * <p>Since this class does not hold any state, it is implemented as an interface with default methods.
+ *
+ * <p>When using <code>beforeSuite</code>/<code>afterSuite</code>, make sure you use the same instance of
+ * your <code>LifecycleRule</code> subclass in both your suite and test classes.
+ */
 public interface LifecycleRule extends TestRule {
     /**
      * wraps the executed statement into a new statement that will call the appropriate lifecycle methods
