@@ -1,6 +1,8 @@
 # junit4-testing
 a lightweight collection of utilities based on JUnit 4
 
+[![Build Status](https://travis-ci.org/thimmwork/junit4-testing.svg?branch=master)](https://travis-ci.org/thimmwork/junit4-testing)
+
 ## Maven coordinates
 Just add this to your dependencies:
 ```xml
