@@ -17,6 +17,8 @@ public class FlexiScopeSuiteTest {
 
     public static class FlexiScopeTestClass {
 
+        //note that each test class in the suite uses the same instance of the semaphore instantiated by the suite class
+        //this way, beforeSuite() and beforeClass() are invoked on the same instance.
         @ClassRule @Rule
         public static FlexiScopedSemaphore SEMAPHORE = FlexiScopeSuiteTest.SEMAPHORE;
 

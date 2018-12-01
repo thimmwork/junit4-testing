@@ -96,3 +96,14 @@ Suite
 ```
 However, if you have nested tests, this detection may not work for you.
 In this case, you may have to override the detection mechanism in ```LifecycleRule#isSuite()``` and/or ```LifecycleRule#isClass()```.
+
+### FlexiScope
+FlexiScope enables to to perform expensive tasks like starting/stopping a database or initializing/resetting state only once per test suite or per test class, which ever you choose to run.
+It combines ```beforeSuite/afterSuite``` with ```beforeClass/afterClass``` and remembers which was used.
+
+So if you run the suite, ```FlexiScope``` will start the database only once and reuse the same instance for each test class. After each test class the database continues to run. And only after all tests in the suite completed, the database is shut down.
+If you run a single test class, ```FlexiScope``` detects that it is running outside the suite scope and will start and stop the database before/after the test class.
+
+This way you don't have to sacrifice quick test result feedback for fast test suites. ```FlexiScope``` gives you the best of both worlds.
+
+Check out ```FlexiScopeSuiteTest``` to see an example. .
