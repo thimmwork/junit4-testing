@@ -40,7 +40,6 @@
         <connection>scm:git:git://github.com/thimmwork/junit4-testing.git</connection>
         <developerConnection>scm:git:git://github.com/thimmwork/junit4-testing.git</developerConnection>
         <url>https://github.com/thimmwork/junit4-testing/tree/master</url>
-      <tag>v1.0</tag>
   </scm>
 
 </project>
